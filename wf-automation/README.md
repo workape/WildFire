@@ -15,13 +15,13 @@ internal interface by the ftp service.
 
 ASCII Art to visualize.
 
-<external ftp>                                                       -> [if malware] -> <alert to syslog>
-      |                                                             /
-</ftp/incoming> -> [files locked] -> <moved to /ftp/quarantine> -> <
-                                                                    \
-                                                                     -> [if benign]  -> <move to /ftp/outgoing>
-                                                                                                     |
-                                                                                               <internal ftp>
+    <external ftp>                                                       -> [if malware] -> <alert to syslog>
+          |                                                             /
+    </ftp/incoming> -> [files locked] -> <moved to /ftp/quarantine> -> <
+                                                                        \
+                                                                         -> [if benign]  -> <move to /ftp/outgoing>
+                                                                                                         |
+                                                                                                   <internal ftp>
 
 Global Variables definitions, these are the only components that will need have their configuration adjusted.
 **wf_tracking_db** - This is the location of the sqlite DB which will be used for tracking files move through the script.
