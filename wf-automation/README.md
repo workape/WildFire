@@ -27,8 +27,8 @@ Global Variables definitions, these are the only components that will need have 
 >**wf_tracking_db** - This is the location of the sqlite DB which will be used for tracking files move through the script.
 >**wf_files_incoming** - This is the location of files that are uploaded to the file server, files are held here until scanned.
 >**wf_files_outgoing** - This is the location of files that have been determined to not be malware by the WildFire system.
-
 >**wf_url_upload** - This is the URL of the WildFire system where files will be uploaded.
+
 >**wf_url_report** - This is the URL of the WildFire system where reports will be pulled.
 >**wf_api_key** - This is the API Key for connecting to the WildFire system.
 >**logging_dev** - This is the OS device used for the connection to the logging subsystem.
