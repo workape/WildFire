@@ -43,7 +43,11 @@ This script will create the sqlite3 database which is used by the wf-ftp-control
 to use and simply creates a DB with the following schema:
 
 >**hash** _text primary key_ - This is the SHA256 hash which is locally generated on the box before uploading.
+
 >**filename** _text_ - This is the full path to the file that is being uploaded, this will be updated to reflect the location of the file as it moves through the incoming/quarantine/outgoing directories.
+
 >**owner_uid** _text_ - This is the UID of the owner of the uploaded file.
+
 >**upload_successful** _text_ - This is a status checker about whether or not a file has been uploaded or not.
+
 >**file_type** _text_ - This refers to whether or not a file is malware, benign, or still unknown due to a lack ofreport back from the WildFire system.
