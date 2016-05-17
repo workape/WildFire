@@ -52,7 +52,7 @@ wf_files_quarantine = '/ftp/quarantine'
 wf_files_outgoing = '/ftp/outgoing'
 wf_url_upload = 'https://wildfire.paloaltonetworks.com/publicapi/submit/file'
 wf_url_report = 'https://wildfire.paloaltonetworks.com/publicapi/get/report'
-wf_api_key = 'cd3bd322ddc8065664ce787c89504f9e'
+wf_api_key = ''
 logging_dev = '/dev/log'
 
 
