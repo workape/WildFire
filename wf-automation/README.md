@@ -1,6 +1,7 @@
 #WildFire Automation Scripts
 
 ## wf-ftp-control.py and create-tracker-db.py
+    ###wf-ftp-control.py
     This script will handle the functionality of picking up files from an incoming directory, locking them, sending
     them up to WildFire for scanning, then based upon determination of file status the files will be either unlocked
     (for benign files) or kept locked and alerted on for malware.  Benign files are then moved into the outgoing
@@ -31,3 +32,15 @@
     wf_url_report - This is the URL of the WildFire system where reports will be pulled.
     wf_api_key - This is the API Key for connecting to the WildFire system.
     logging_dev - This is the OS device used for the connection to the logging subsystem.
+
+    ###create-tracker-db.py
+    This script will create the sqlite3 database which is used by the wf-ftp-control.py script.  It is a simple enough
+    to use and simply creates a DB with the following schema:
+
+    **hash** _text primary key_ - This is the SHA256 hash which is locally generated on the box before uploading.
+    **filename** _text_ - This is the full path to the file that is being uploaded, this will be updated to reflect the
+    location of the file as it moves through the incoming/quarantine/outgoing directories.
+    **owner_uid** _text_ - This is the UID of the owner of the uploaded file.
+    **upload_successful** _text_ - This is a status checker about whether or not a file has been uploaded or not.
+    **file_type** _text_ - This refers to whether or not a file is malware, benign, or still unknown due to a lack of
+    report back from the WildFire system.
