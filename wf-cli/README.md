@@ -6,13 +6,14 @@
     need to have the argparse and requests installed.  Both modules perform their functions perfectly for the work that
     is looking to be completed.
 
+    These modules can be installed with a **pip install argparse** and **pip install requests**, that is assuming that
+    you have pip installed.  If you don't have pip installed, you will need to obtain it for your OS before moving
+    forward with installing the modules.  pip is awesome, seriously get it.
+
     For functional assistance, check out the -h or --help options while executing the wf.py script.
 
     Currently the script is configured to use the WildFire public cloud, but you can easily adapt it to use your WF-500.
+    This can be done by altering the wf_upload_url and wf_report_url global variables just under the leading comment
+    block in the script.
 
-    This script is only for use with file uploads and report pulling.
-
-    File uploads are completed and the WildFire reported SHA256 hash will be output.
-    Report pulls are written in the format of wildfire-report-<SHA256 hash>.<report format>, they can be either PDF or
-    XML.
 
