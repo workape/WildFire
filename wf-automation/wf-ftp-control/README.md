@@ -1,4 +1,4 @@
-#WildFire Automation Scripts
+#WildFire FTP Control Script
 
 ##wf-ftp-control.py
 This script will handle the functionality of picking up files from an incoming directory, locking them, sending
