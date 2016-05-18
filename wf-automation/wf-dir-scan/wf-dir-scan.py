@@ -69,7 +69,11 @@ def file_sizer(filename):
     :return: Either the size of file in bytes or False in the case that an error is raised.
     '''
     try:
-        return os.stat(filename).st_size
+        if os.stat(filename).st_size < 10000000:
+            return True
+        else:
+            if DEBUG:
+                print 'Error: %s exceeds WildFire maximum 10MB file size limitation.' % filename
     except OSError as size_err:
         if DEBUG:
             print 'Error: Cannot open %s %s' % (filename, size_err.strerror)
