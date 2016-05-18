@@ -9,7 +9,7 @@ please note that if you are running this on a Windows machine, you will need to 
 
 
 ## WildFire Directory Scanning (wf-dir-scan)
-**_This project is a work in progress and should not be used at this time._**
+###**_This project is a work in progress and should not be used at this time._**
 _wf-dir-scan_ is a project in progress that will scan any locally mounted directories that it has the permissions to
 read the files on.  Several checks will be performed on the files (Reported File Type, Size of File, etc) before
 attempting to upload to the WildFire systems.
