@@ -18,8 +18,9 @@ target_dir = ''
 def file_checks(filename):
     '''
     This function will perform all necessary file checks on a file before it is sent up to WildFire
-    :param filename:
-    :return:
+
+    :param filename: This is the full path to the file that needs to have the hashing, MIME, and size checks.
+    :return: This function will return a tuple of hash, MIME type, and size status.
     '''
     file_hash = file_hasher(filename)
     file_type = file_typer(filename)
@@ -27,7 +28,7 @@ def file_checks(filename):
     if file_hash and file_type and file_size:
         if DEBUG:
             print 'File %s is good for WildFire Upload' % filename
-        return True
+        return file_hash, file_type, file_size
     else:
         if DEBUG:
             print 'File %s is not good for WildFire Upload' % filename
@@ -60,6 +61,9 @@ def file_typer(filename):
     '''
     This function will find the MIME type of a file from the magic number and return it if possible.
 
+    **Future note, once I have the list of supported MIME types in WildFire we will do base checks against the MIME
+    types to verify whether or not a file is supported.
+
     :param filename: This is the file that is to be checked.
     :return: Either the MIME type or False in the case that an error is raised.
     '''
@@ -74,7 +78,7 @@ def file_typer(filename):
 
 def file_sizer(filename):
     '''
-    This function will find the size of a file
+    This function will find the size of a file and return whether or not it is over the 10Mb limit.
 
     :param filename: This is the file that is to be sized
     :return: Either the size of file in bytes or False in the case that an error is raised.
@@ -89,6 +93,7 @@ def file_sizer(filename):
         if DEBUG:
             print 'Error: Cannot open %s %s' % (filename, size_err.strerror)
         return False
+
 
 def wf_upload(wf_filename):
     '''
@@ -170,6 +175,5 @@ def wf_control():
             wf_upload(file_fullpath)
 
 if __name__ == '__main__':
-    #wf_control()
-    pass
+    wf_control()
 
