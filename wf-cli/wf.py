@@ -43,7 +43,7 @@ def parse_args():
     group.add_argument('-d', '--dir', type=str, help='Location of directory of files to upload to WildFire')
     parser.add_argument('-hash', type=str, help='SHA256 hash of file to pull report from WildFire')
     parser.add_argument('-api_key', type=str, help='WildFire API Key')
-    parser.add_argument('-format', type=str, help='Report file format (either xml or pdf)')
+    parser.add_argument('-format', type=str, default='pdf', help='Report file format (either xml or pdf)')
     parser.add_argument('-hf', '--hashfile', type=str, help='File of hashes to pull reports from WildFire')
     args = parser.parse_args()
     check_args(parser, args)
