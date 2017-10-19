@@ -44,6 +44,7 @@ def parse_args():
     parser.add_argument('-hash', type=str, help='SHA256 hash of file to pull report from WildFire')
     parser.add_argument('-api_key', type=str, help='WildFire API Key')
     parser.add_argument('-format', type=str, help='Report file format (either xml or pdf)')
+    parser.add_argument('-hf', '--hashfile', type=str, help='File of hashes to pull reports from WildFire')
     args = parser.parse_args()
     check_args(parser, args)
     return parser, args
@@ -153,7 +154,7 @@ def upload_wf_file(wf_args, filename):
         print 'Successfully uploaded %s with SHA256 hash %s' % (filename, xml.dom.minidom.parseString(wf_req.text).getElementsByTagName('sha256')[0].firstChild.nodeValue)
 
 
-def pull_wf_report(args):
+def pull_wf_report(hash, args):
     '''
     This function will pull down reports from the WildFire Cloud.  It can be pulled down in either PDF or XML formats,
     the reports will then be written to the file of the appropriate type.
@@ -162,8 +163,8 @@ def pull_wf_report(args):
     :return: Nothing, this function only pulls down reports from the WildFire Cloud.
     '''
     global wf_report_url
-    wf_headers = {"apikey": args.api_key, "hash": args.hash, "format": str(args.format).lower()}
-    wf_filename = 'wildfire-report-%s.%s' % (args.hash, str(args.format).lower())
+    wf_headers = {"apikey": args.api_key, "hash": hash, "format": str(args.format).lower()}
+    wf_filename = 'wildfire-report-%s.%s' % (hash, str(args.format).lower())
 
     try:
         wf_req = requests.post(wf_report_url, data=wf_headers)
@@ -174,15 +175,31 @@ def pull_wf_report(args):
     if wf_req.status_code != requests.codes.ok:
         wf_error_codes(wf_req.status_code)
     else:
-        print 'Successfully pulled report wildfire-report-%s.%s' % (args.hash, str(args.format).lower())
+        print 'Successfully pulled report wildfire-report-%s.%s' % (hash, str(args.format).lower())
         with open(wf_filename, 'wb') as wf_dataout:
             wf_dataout.write(wf_req.content)
+
+
+def multi_hash(args):
+    '''
+    This function will roll through a file one line at a time to pull the associated hashes on that line.  It will
+    assume that there is a single hash per line and chop off anything after a space.
+    :param args: This is the parsed CLI arguments from the called parse_args function.  All components needed will be
+    pulled from this passed parameter.
+    :return: Nothing, this function only loops and calls the pull_wf_report function for pulling reports.
+    '''
+    with open(args.hashfile, 'r') as hashes:
+        for hash in hashes:
+            hash = hash.split() # Drop anything after a space character
+            pull_wf_report(hash, args)
 
 
 def main():
     args_parser, args = parse_args()
     if args.hash:
-        pull_wf_report(args)
+        pull_wf_report(args.hash, args)
+    elif args.hashfile:
+        multi_hash(args)
     else:
         upload_wf_control(args)
     pass
